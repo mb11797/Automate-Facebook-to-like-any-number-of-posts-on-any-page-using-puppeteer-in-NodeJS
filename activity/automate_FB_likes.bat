@@ -1,0 +1,1 @@
+node automate_FB.js "../credentials.json" "Times Of India" 10
