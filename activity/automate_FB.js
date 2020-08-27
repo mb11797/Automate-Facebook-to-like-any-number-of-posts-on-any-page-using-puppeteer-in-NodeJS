@@ -63,7 +63,7 @@ let noOfPost = process.argv[4];
         tab.click("div[data-key=tab_posts] a"),
         tab.waitForNavigation({waitUntil: "networkidle2"})
     ]);
-    await tab.waitForNavigation({waitUntil: "networkidle2"});
+    // await tab.waitForNavigation({waitUntil: "networkidle2"});
 
     // // Method 1 - Like posts
     // // loader after every 7 posts
@@ -88,6 +88,7 @@ let noOfPost = process.argv[4];
     // Method 2 - Like posts
     // loader after every 7 posts
     // 20 post => 7 before each loader
+    await tab.waitForSelector("#pagelet_timeline_main_column ._1xnd>._4-u2._4-u8", 10000);
     let idx = 0;
     do{
         // all posts => request, time => page => element display
@@ -95,16 +96,18 @@ let noOfPost = process.argv[4];
         // await tab.waitForSelector(".pagelet_timeline_main_column ._1xnd .clearfix.uiMorePager");
         // await tab.waitForSelector(".pagelet_timeline_main_column ._1xnd .clearfix.uiMorePager");
         // get all posts
-        // let posts = await tab.$$(".pagelet_timeline_main_column ._1xnd>._4-u2._4-u8");
-        // let cPost = posts[idx];
-        // let likeBtn = await cPost.$("._666k ._8c74");
+        console.log("qwerty");
+        let posts = await tab.$$("#pagelet_timeline_main_column ._1xnd>._4-u2._4-u8");
+        console.log(posts);
+        let cPost = posts[idx];
+        let likeBtn = await cPost.$("._666k ._8c74");
         // let likeBtn = await cPost.$("._666k ._8c74");
         // await tab.waitForSelector("._666k ._8c74 ._6a-y._3l2t._18vj");
-        let likeBtn = await tab.$("._666k ._8c74 ._6a-y._3l2t._18vj");
+        // let likeBtn = await tab.$("._666k ._8c74 ._6a-y._3l2t._18vj");
         await likeBtn.click({delay: 120});
 
         //loader => data
-        // await tab.waitForSelector(".uiMorePagerLoader.pam.uiBoxLightblue", {hidden: true});
+        await tab.waitForSelector(".uiMorePagerLoader.pam.uiBoxLightblue", {hidden: true});
         idx++;
     }while(idx<noOfPost);
 
